@@ -1,0 +1,26 @@
+body{
+    background-color: red;
+}
+#mainbox{
+    width:400px;
+    height: 400px;
+    background-color: green;
+    margin: auto;
+    text-align: center;
+}
+h1{
+   text-align: center;
+   
+}
+input{
+    /* text-align: center; */
+    border: 2px solid yellowgreen;
+   
+}
+#input{
+    padding: 20px;
+}
+#results{
+    color:aliceblue;
+    padding-top: 10px;
+}

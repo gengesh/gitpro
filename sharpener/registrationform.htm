@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-5">
+         <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" onsubmit="signup(event)">
+                            <div class="form-group text-center">
+                                <h1>Book a Call</h1>
+                            </div>
+                            <div class="form-group">
+                                <label for="name1">First Name:</label>
+                                <input type="text" id="name1"name="username"class="form-control"placeholder="Enter Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email"class="form-control"placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password"id="password" class="form-control"placeholder="Enter password">
+                             </div>
+                             <div class="row">
+                                <div class="col-sm-6">
+                              <div class="form-group">
+                                <label for="date">Date:</label>
+                                <input type="date"id="date"class="form-control">
+                             </div>
+                             </div>
+                             <div class="col-sm-6">
+                             <div class="form-group">
+                                <label for="time">Time:</label>
+                                <input type="time"class="form-control"id="time">
+                              </div>
+                             </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success mx-4">submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+    <script>
+function signup(event){
+    event.preventDefault();
+    // console.log("enter");
+    console.log("First Name:"+event.target.username.value);
+    console.log("Email:"+event.target.email.value);
+            console.log("Password:"+event.target.password.value);
+            console.log("Date:"+event.target.date.value);
+            console.log("time"+event.target.time.value);
+}
+    </script>
+</body>
+</html>

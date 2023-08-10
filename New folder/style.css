@@ -1,0 +1,31 @@
+h1{
+    font-style: italic;
+    /* background-color: blue; */
+    color:green;
+}
+#box{
+    
+    height: 400px;
+    width: 400px;
+    background-color: black;
+}
+h3{
+color:red;
+}
+#result{
+    /* background-color: azure; */
+    display:flex;
+    justify-content: center;
+    height: 20px;
+    width:200px;
+   color:white;
+
+}
+h1,h3,input,button{
+    display:flex;
+    justify-content: center;
+}
+#input,#bt{
+    display:flex;
+    justify-content: center;
+}

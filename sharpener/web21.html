@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center;">JS For Beginners</h1>
+    <form id="my-form"style="text-align:center">
+    <h1>Add User</h1>
+    <div class="msg"></div>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text"id="name">
+    </div>
+    <div>
+    <label for="email">Email:</label>
+    <input type="text"id="email">
+    </div>
+    <input class="btn" type="submit"value="Submit">
+</form>
+<ul id="users"></ul>
+<ul class="items">
+    <li class="item"style="background-color:lightgrey; border: 2px solid black">item1</li>
+    <li class="item"style="background-color:lightgrey;border: 2px solid black">item2</li>
+    <li class="item"style="background-color:lightgrey;border: 2px solid black">item3</li>
+</ul>
+<script>
+const btn =document.querySelector(".btn");
+btn.addEventListener('mouseout',(e) => {
+    e.preventDefault();
+  document.querySelector('#my-form').style.background = '#ccc';
+  document.querySelector('body').classList.add('bg-dark');
+});
+
+</script>
+<style>
+    .bg-dark{
+        background: #333;
+        color:#fff;
+    }
+</style>
+</body>
+</html>

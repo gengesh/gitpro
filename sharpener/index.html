@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: aqua;">
+    <h1 style="text-align:center;color:red" >Book a Call</h1>
+    <form action=""onsubmit="signup(event)" style="text-align:center;background-color:red">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="username" required><br>
+        <label for="email"style="text-align:left">Email:</label>
+        <input type="email" id="email"name="email"><br>
+        <label for="ccpassword">Password:</label>
+        <input type="password" id="ccpassword" name="cpassword"><br>
+        <label for="date">Time of Call:</label>
+        <input type="date" id="date"name="date" required>
+        <input type="time" id="time"name="time" required><br>
+       <button>book a call</button>
+    </form>
+    <script>
+        function signup(event){
+            event.preventDefault();
+            // console.log("yes");
+            console.log("First Name:"+event.target.username.value);
+            console.log("Email:"+event.target.email.value);
+            console.log("Password:"+event.target.cpassword.value);
+            console.log("Date:"+event.target.date.value);
+            console.log("time"+event.target.time.value);
+        }
+    </script>
+</body>
+</html>
