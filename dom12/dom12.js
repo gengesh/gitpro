@@ -21,5 +21,11 @@ function addUser(e){
     li.appendChild(document.createTextNode(content));
     console.log(li);
     listUsers.appendChild(li);
-localStorage.setItem(email,uName);
+    const obj = {
+        uName,
+        email,
+        phone
+    }
+    var obj_serialized = JSON.stringify(obj);
+localStorage.setItem(obj.email,obj_serialized);
 }
