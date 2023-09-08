@@ -1,11 +1,14 @@
 var form = document.getElementById('addForm');
 var listUsers = document.getElementById('listUsers');
 function allStorage() {
-    var archive = [];
-    for (var i = 0; i<localStorage.length; i++) {
-        archive[i] = localStorage.getItem(localStorage.key(i));
+    axios.get('https://crudcrud.com/api/3ce20d25f37b4c8eb0877c9a674703dd/userData')
+    .then((response) => {
+        console.log(response);
+          var archive = [];
+        for(var i=0;i<response.data.length;i++){
+            let user  = response.data[i];
     //    console.log(archive[i]);
-       let user = JSON.parse(archive[i]);
+    //    let user = JSON.parse(archive[i]);
     //    console.log(user.uName);
         // console.log(uName,email);
         var li = document.createElement('li');
@@ -21,10 +24,45 @@ function allStorage() {
         editButton.appendChild(document.createTextNode("Edit"));
         li.appendChild(button);
         li.appendChild(editButton);
-        listUsers.appendChild(li);
-    }
+        listUsers.appendChild(li)
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    // var archive = [];
+    // for (var i = 0; i<localStorage.length; i++) {
+    //     archive[i] = localStorage.getItem(localStorage.key(i));
+    // //    console.log(archive[i]);
+    //    let user = JSON.parse(archive[i]);
+    // //    console.log(user.uName);
+    //     // console.log(uName,email);
+    //     var li = document.createElement('li');
+    //     li.className= "list-group-item p-1 mt-2";
+    //     var content = user.uName+" : "+user.email+" : "+user.phone;
+    //     li.appendChild(document.createTextNode(content));
+    //     // console.log(li);
+    //     var button = document.createElement('button');
+    //     button.className="btn btn-danger float-right btn-sm delete";
+    //     button.appendChild(document.createTextNode('delete'));
+    //     var editButton = document.createElement('button');
+    //     editButton.className="btn float-right btn-sm mr-3 edit";
+    //     editButton.appendChild(document.createTextNode("Edit"));
+    //     li.appendChild(button);
+    //     li.appendChild(editButton);
+    //     listUsers.appendChild(li);
+    // }
 }
 allStorage();
+// window.addEventListener("DOMContentLoaded", ()=> {
+//     axios.get('https://crudcrud.com/api/3ce20d25f37b4c8eb0877c9a674703dd/userData')
+//     .then((response) => {
+//         console.log(response)
+//     })
+//     .catch((error) => {
+//         console.log(error)
+//     })
+// })
 //add listener to add button
 form.addEventListener("submit",addUser);
 
