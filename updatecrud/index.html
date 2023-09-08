@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>Add users</title>
+</head>
+<body>
+    <header class="bg-success text-white p-4 mb-3">
+        <div class="container">
+            <div>
+                <h2>Add users</h2></div>
+        </div>
+    </header>
+    <div class='container'>
+        <form id="addForm">
+        <label for="uname">Name:</label>
+        <input type="text"class="form-control"id="uname"placeholder='Enter the name'required>
+        <label for="email">Email:</label>
+        <input type="email"class="form-control"id="email"placeholder="enter the email"required>
+        <label for="phone">Phone Number:</label>
+        <input type="number"class="form-control"id="phone"placeholder="enter the phone number"required>
+        <div class="row justify-content-center">
+        <input type="submit"class="btn btn-primary mt-3"value="Add">
+    </div>
+   </form>
+    </div>
+    <div class="container">
+    <h5>Added Users:-</h5>
+    <ul id="listUsers" class="list-group">
+        <!-- <li class="list-group-item p-1 mt-2">item 1<button type="submit"class="btn btn-danger float-right btn-sm delete">Delete</button>
+            <button type="submit"class="btn float-right btn-sm mr-3 edit">Edit</button>
+        </li> -->
+       
+    </ul>    
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="updatecrud.js"></script>
+</body>
+</html>
