@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon chat.js",
-    "start-server": "node chat.js"
+    "start": "nodemon nodeModules.js",
+    "start-server": "node nodeModules.js"
   },
   "author": "gengeswaran",
   "license": "ISC",
