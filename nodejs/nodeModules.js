@@ -10,12 +10,12 @@ const contactRoutes = require('./routes/contact');
 const successRoutes = require('./routes/success');
 const errorController = require('./controller/err');
 app.use(bodyParser.urlencoded({extended:false}));
-
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use('/admin',adminRoutes);
 app.use(shopRoutes); 
 app.use('/admin',contactRoutes);
 app.use('/admin',successRoutes);
-
 app.use(errorController.getError);
 // const server = http.createServer(app);
     app.listen(4000);
