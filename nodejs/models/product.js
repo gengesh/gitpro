@@ -18,10 +18,12 @@ const getFromFile = cb =>{
     });
 }
 module.exports = class Product {
-    constructor(title){
+    constructor(title,des){
         this.title = title;
+        this.description = des;
     }
     save(){
+      this.id = Math.random().toString();
       getFromFile(existingData =>{
         existingData.push(this);
         const jsonString = JSON.stringify(existingData);
@@ -45,5 +47,11 @@ module.exports = class Product {
         //    existingData=JSON.parse(oldData);
         static fetchAll(cb){
         getFromFile(cb);
-    }    
+    } 
+    static findById(id,cb) {
+      getFromFile(products => {
+        const product = products.find(p => p.id === id)
+        cb(product)
+      });
+    }  
 }

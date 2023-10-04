@@ -12,6 +12,7 @@
             font-family:sans-serif;
         }
         main {
+            border:3px solid #b49643;
             padding:1rem;
         }
         .main-header {
@@ -58,9 +59,14 @@
             margin:1rem 0;
         }
         .form-control input{
-            border: 1px solid #fbff00;
+            border: 1px solid blueviolet;
             font:inherit;
             border-radius:2px;
+        }
+        textarea{
+            border: 1px solid blueviolet;
+            border-radius:2px;
+
         }
         button {
             font:inherit;
@@ -88,11 +94,13 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="main">
         <form class="product-form" action="/admin/add-product" method="POST">
             <div class="form-control">
-                <label for="title">Title</label>
+                <label for="title">Title:</label>
             <input type="text"name="title"id="title">
+            <label for="description">Description:</label>
+            <textarea type="text"name="description"id="description"placeholder="enter discription here..."></textarea>
         </div>
             <button type="submit">Add Product</button>
         </form>

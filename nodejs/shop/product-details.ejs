@@ -12,6 +12,7 @@
             font-family:sans-serif;
         }
         main {
+            border:3px solid #b49643;
             padding:1rem;
         }
         .main-header {
@@ -51,21 +52,15 @@
     <header class="main-header">
         <nav class="main-header__nav">
             <ul class="main-header__item-list">
-                <li class="main-header-item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header-item"><a href="/">Shop</a></li>
                 <li class="main-header-item"><a href="/admin/add-product">Add Product</a></li>
-                <li class="main-header-item"><a href="/contactus">Contact Us</a></li>
+                <li class="main-header-item"><a href="/admin/contactus">Contact Us</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>My Products</h1>
-        <p>List of all the products...</p>
-        <ul>
-            <% if(prod!=undefined){ %>
-            <% prod.forEach((item) => { %>
-              <li><%= item.title %></li>
-            <% });} %>
-          </ul>
+              <h1><%= product.title %></h1>
+              <p><%= product.description %></p>
     </main>
 </body>
 </html>
