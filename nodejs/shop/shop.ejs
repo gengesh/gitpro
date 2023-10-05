@@ -63,7 +63,14 @@
         <ul class="list-head">
             <% if(prod!=undefined){ %>
             <% prod.forEach((item) => { %>
-              <li><%= item.title %> <a href="/admin/product/<%=item.id %>"><button type="submit">Details</button></a></li>
+              <li><%= item.title %>
+                <a href="/admin/product/<%=item.id %>">
+                    <button type="submit">Details</button></a>
+                    <form action="/cart" method="post">
+                        <button type="submit">Add to cart</button>
+                        <input type="hidden"name="productId" value="<%=item.id %>">
+                    </form>
+            </li>
              
             <% });} %>
           </ul>

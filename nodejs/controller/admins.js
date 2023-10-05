@@ -6,7 +6,7 @@ exports.getAdmin = (req,res,next) =>{
 // /admin/add-product => POST
 exports.postAdmin = (req,res,next) => {
     console.log(req.body);
-    const product = new Product(req.body.title,req.body.description);
+    const product = new Product(req.body.title,req.body.price,req.body.description);
     product.save();
     res.redirect('/');
 }

@@ -1,7 +1,7 @@
 const product = [];
 const fs = require('fs');
 const getFromFile = cb =>{
-  fs.readFile('data.json', 'utf8', (err, data) => {
+  fs.readFile('data/data.json', 'utf8', (err, data) => {
             if (err) {
               console.error('Error reading file:', err);
                cb([]);
@@ -18,8 +18,9 @@ const getFromFile = cb =>{
     });
 }
 module.exports = class Product {
-    constructor(title,des){
+    constructor(title,price,des){
         this.title = title;
+        this.price = price;
         this.description = des;
     }
     save(){
@@ -27,7 +28,7 @@ module.exports = class Product {
       getFromFile(existingData =>{
         existingData.push(this);
         const jsonString = JSON.stringify(existingData);
-    fs.writeFile('data.json',jsonString,(err) => {
+    fs.writeFile('data/data.json',jsonString,(err) => {
         if (err) {
           console.error('Error writing to file:', err);
         } else {

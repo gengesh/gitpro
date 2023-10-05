@@ -61,6 +61,10 @@
     <main>
               <h1><%= product.title %></h1>
               <p><%= product.description %></p>
+              <form action="/cart" method="post">
+                <button type="submit">Add to cart</button>
+                <input type="hidden"name="productId" value="<%=product.id %>">
+            </form>
     </main>
 </body>
 </html>
