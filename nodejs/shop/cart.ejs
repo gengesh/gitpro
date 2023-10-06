@@ -52,10 +52,10 @@
     <header class="main-header">
         <nav class="main-header__nav">
             <ul class="main-header__item-list">
-                <li class="main-header-item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header-item"><a  href="/">Shop</a></li>
                 <li class="main-header-item"><a href="/admin/add-product">Add Product</a></li>
                 <li class="main-header-item"><a href="/admin">Admin</a></li>
-                <li class="main-header-item"><a href="/cart">Cart</a></li>
+                <li class="main-header-item"><a class="active" href="/cart">Cart</a></li>
                 <li class="main-header-item"><a href="/contactus">Contact Us</a></li>
             </ul>
         </nav>
@@ -64,18 +64,17 @@
         <h1>My Products</h1>
         <ul class="list-head">
             <% if(prod!=undefined){ %>
-            <% prod.forEach((item) => { %>
+            <% prod.products.forEach((item) => { %>
               <li><%= item.title %>
+                <div>Quantity:<%= item.qty %></div>
+                <div>Price:<%= item.price %></div>
                 <a href="/admin/product/<%=item.id %>">
                     <button type="submit">Details</button></a>
-                    <form action="/cart" method="post">
-                        <button type="submit">Add to cart</button>
-                        <input type="hidden"name="productId" value="<%=item.id %>">
-                    </form>
             </li>
              
             <% });} %>
           </ul>
+          <h2>Total Price:<%= prod.totalPrice %></h2>
     </main>
 </body>
 </html>

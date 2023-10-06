@@ -100,16 +100,18 @@
         </nav>
     </header>
     <main class="main">
-        <form class="product-form" action="/admin/add-product" method="POST">
+        <form class="product-form" action="/admin/<% if(editing){ %>edit-product<%} else {%>add-product<% } %>" method="POST">
             <div class="form-control">
                 <label for="title">Title:</label>
-            <input type="text"name="title"id="title">
+            <input type="text"name="title"id="title"value="<% if(editing){ %><%= product.title %> <%}%>">
             <label for="price">Price:</label>
-            <input type="text"name="price"id="title">
+            <input type="text"name="price"id="title"value="<% if(editing){ %><%= product.price %> <%}%>">
             <label for="description">Description:</label>
-            <textarea type="text"name="description"id="description"placeholder="enter discription here..."></textarea>
-        </div>
-            <button type="submit">Add Product</button>
+            <textarea type="text"name="description"id="description"placeholder="enter the discription here..."><% if(editing){ %><%= product.description %> <%}%></textarea>
+        </div><% if(editing) { %>
+            <input type="hidden"value="<%= product.id %>"name="productId">
+        <% } %>
+            <button type="submit"><% if(editing) { %>Update Prdoduct<% } else { %>Add Product!<% } %></button>
         </form>
     </main>
 </body>

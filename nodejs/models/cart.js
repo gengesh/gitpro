@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 module.exports = class Cart {
-    static addProduct(id,productPrice){
+    static addProduct(id,title,productPrice){
     //Fetch the previous cart
     fs.readFile('data/cart.json','utf8', (err,data) => {
         let cart = { products: [], totalPrice: 0 };
@@ -21,7 +21,7 @@ module.exports = class Cart {
             cart.products = [...cart.products];
             cart.products[existingProductIndex]=updatedProduct;
         }else {
-            updatedProduct = {id:id,qty:1};
+            updatedProduct = {id:id,title:title,price:productPrice,qty:1};
             cart.products = [...cart.products,updatedProduct];
         }
         cart.totalPrice = cart.totalPrice + +productPrice;
@@ -29,11 +29,21 @@ module.exports = class Cart {
             console.log(err);
         });
     });
-    
-
-
     //Analyze the cart => Find existing product
     //Add new product/ increase quantity.
     }
+    static fetchAll(cb){
+        fs.readFile('data/cart.json','utf8', (err,data) => {
+            let cart = { products: [], totalPrice: 0 };
+            if(!err){
+                try{
+                    cb(JSON.parse(data));
+                }catch(parseError){
+                    cart = { products: [], totalPrice: 0 };
+                    cb(cart);
+                }   
+            }
+    });
+}
     
 }

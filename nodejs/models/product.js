@@ -8,33 +8,47 @@ const getFromFile = cb =>{
             } else {
               try {
                 const jsonData = JSON.parse(data);
-                console.log('JSON data from the file:', jsonData);
+                // console.log('JSON data from the file:', jsonData);
                 cb(jsonData);
               } catch (parseError) {
                 cb([]);
-                // console.error('Error parsing JSON:', parseError);
               }
             }
     });
 }
 module.exports = class Product {
-    constructor(title,price,des){
+    constructor(id,title,price,des){
+        this.id = id;
         this.title = title;
         this.price = price;
         this.description = des;
     }
     save(){
-      this.id = Math.random().toString();
-      getFromFile(existingData =>{
-        existingData.push(this);
-        const jsonString = JSON.stringify(existingData);
-    fs.writeFile('data/data.json',jsonString,(err) => {
-        if (err) {
-          console.error('Error writing to file:', err);
-        } else {
-          console.log('JSON data has been written to the file.');
-        }
-});
+      getFromFile(products =>{
+        if(this.id) {
+          const existingProductIndex = products.findIndex(prod => prod.id ===this.id);
+          const updatedProducts = [...products];
+          updatedProducts[existingProductIndex] = this;
+          const updatedJsonString = JSON.stringify(updatedProducts);
+          fs.writeFile('data/data.json',updatedJsonString,(err) => {
+            if (err) {
+              console.error('Error writing to file:', err);
+            } else {
+              console.log('JSON data has been written to the file.');
+            }
+    });    
+        }else{
+           this.id = Math.random().toString();
+           products.push(this);
+          const jsonString = JSON.stringify(products);
+      fs.writeFile('data/data.json',jsonString,(err) => {
+          if (err) {
+            console.error('Error writing to file:', err);
+          } else {
+            console.log('JSON data has been written to the file.');
+          }
+  });}
+       
 
       });
     }
@@ -51,8 +65,14 @@ module.exports = class Product {
     } 
     static findById(id,cb) {
       getFromFile(products => {
-        const product = products.find(p => p.id === id)
-        cb(product)
+        const product = products.find(p => p.id === id);
+        cb(product);
       });
     }  
+    static remainingFindById(id,cb){
+      getFromFile(products => {
+        const product = products.filter(p => p.id != id);
+        cb(product);
+      });
+    }
 }

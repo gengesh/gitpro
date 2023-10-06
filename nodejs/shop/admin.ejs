@@ -52,9 +52,9 @@
     <header class="main-header">
         <nav class="main-header__nav">
             <ul class="main-header__item-list">
-                <li class="main-header-item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header-item"><a  href="/">Shop</a></li>
                 <li class="main-header-item"><a href="/admin/add-product">Add Product</a></li>
-                <li class="main-header-item"><a href="/admin">Admin</a></li>
+                <li class="main-header-item"><a class="active" href="/admin">Admin</a></li>
                 <li class="main-header-item"><a href="/cart">Cart</a></li>
                 <li class="main-header-item"><a href="/contactus">Contact Us</a></li>
             </ul>
@@ -68,10 +68,12 @@
               <li><%= item.title %>
                 <a href="/admin/product/<%=item.id %>">
                     <button type="submit">Details</button></a>
-                    <form action="/cart" method="post">
-                        <button type="submit">Add to cart</button>
-                        <input type="hidden"name="productId" value="<%=item.id %>">
+                    <form action="/admin/edit-product/<%=item.id %>">
+                        <button type="submit">Edit</button>
+                        <input type="hidden"name="edit" value="true">
                     </form>
+                    <a href="/admin/delete/<%=item.id %>">
+                        <button type="submit">Delete</button></a>
             </li>
              
             <% });} %>

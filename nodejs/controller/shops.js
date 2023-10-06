@@ -18,9 +18,17 @@ exports.getProduct = (req,res,next) => {
 exports.postCart = (req,res,next) => {
     const prodId = req.body.productId;
     Product.findById(prodId, product => {
-        console.log("new:",product);
-        Cart.addProduct(prodId,product.price);
+        Cart.addProduct(prodId,product.title,product.price);
+
+    });
+    Cart.fetchAll(prod => {
+        res.render('cart',{prod});
     });
     // console.log("post cart:",prodId);
-    res.redirect('/cart');
+    // res.redirect('/cart');
+}
+exports.getCart = (req,res,next) => {
+    Cart.fetchAll(prod => {
+        res.render('cart',{prod});
+    });
 }
