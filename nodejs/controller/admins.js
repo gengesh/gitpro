@@ -9,8 +9,10 @@ exports.getAdmin = (req,res,next) =>{
 exports.postAdmin = (req,res,next) => {
     console.log(req.body);
     const product = new Product(null,req.body.title,req.body.price,req.body.description);
-    product.save();
-    res.redirect('/');
+    product.save().then(() => {
+       res.redirect('/');
+    }).catch(err => console.log(err));
+   
 }
 exports.getEditProduct = (req,res,next) => {
     const editMode = req.query.edit;
@@ -38,26 +40,18 @@ exports.postEditProduct = (req,res,next) => {
     res.redirect('/admin');
 }
 exports.getAdminMain = (req,res,next) =>{
-    Product.fetchAll(prod => {
-    res.render('admin',{prod});
-    });
+    Product.fetchAll().then(([rows,filedData]) =>{
+        res.render('admin',{prod:rows});
+    }).catch(err => console.log(err));
     
     // res.sendFile(path.join(__dirname,'../','views','shop.ejs'));
 };
 exports.getDeleteProduct = (req,res,next) => {
     const prodId = req.params.productId;
-    Product.remainingFindById(prodId,product => {
-     if(!product){
+    Product.remainingFindById(prodId).then(([rows,filedData]) =>{
+        // res.render('admin',{prod:rows});
+        res.redirect('/admin');
+    }).catch(err => {
         return res.redirect('/');
-     }
-     const jsonString = JSON.stringify(product);
-     fs.writeFile('data/data.json',jsonString,(err) => {
-        if (err) {
-          console.error('Error writing to file:', err);
-        } else {
-          console.log('JSON data has been written to the file.');
-        }
-});
-res.redirect('/admin');
-    })
+        });
 }
