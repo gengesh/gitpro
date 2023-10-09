@@ -7,12 +7,14 @@ exports.getAdmin = (req,res,next) =>{
 };
 // /admin/add-product => POST
 exports.postAdmin = (req,res,next) => {
-    console.log(req.body);
-    const product = new Product(null,req.body.title,req.body.price,req.body.description);
-    product.save().then(() => {
-       res.redirect('/');
-    }).catch(err => console.log(err));
-   
+   Product.create({
+   title:req.body.title,
+   price:req.body.price,
+   description:req.body.description
+}).then( (results) =>{
+// console.log(results);
+res.redirect('/');
+}).catch( err => console.log(err));
 }
 exports.getEditProduct = (req,res,next) => {
     const editMode = req.query.edit;
@@ -40,10 +42,9 @@ exports.postEditProduct = (req,res,next) => {
     res.redirect('/admin');
 }
 exports.getAdminMain = (req,res,next) =>{
-    Product.fetchAll().then(([rows,filedData]) =>{
-        res.render('admin',{prod:rows});
+    Product.findAll().then(products => {
+        res.render('admin',{prod:products });
     }).catch(err => console.log(err));
-    
     // res.sendFile(path.join(__dirname,'../','views','shop.ejs'));
 };
 exports.getDeleteProduct = (req,res,next) => {

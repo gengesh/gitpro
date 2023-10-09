@@ -2,7 +2,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./util/database');
+const sequelize = require('./util/database');
 const app = express();
 
 const adminRoutes = require('./routes/admin')
@@ -21,4 +21,8 @@ app.use('/admin',contactRoutes);
 app.use('/admin',successRoutes);
 app.use(errorController.getError);
 // const server = http.createServer(app);
+sequelize.sync().then((results) => {
+    // console.log(results);
     app.listen(4000);
+}).catch(err => console.log(err));
+    
