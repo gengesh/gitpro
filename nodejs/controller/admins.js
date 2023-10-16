@@ -7,23 +7,26 @@ exports.getAdmin = (req,res,next) =>{
 };
 // /admin/add-product => POST
 exports.postAdmin = (req,res,next) => {
-   Product.create({
-   title:req.body.title,
-   price:req.body.price,
-   description:req.body.description
-}).then( (results) =>{
+    req.user
+    .createProduct({
+        title:req.body.title,
+        price:req.body.price,
+        description:req.body.description
+     })
+     .then( (results) =>{
 // console.log(results);
 res.redirect('/');
 }).catch( err => console.log(err));
 }
 exports.getEditProduct = (req,res,next) => {
     const editMode = req.query.edit;
-    console.log("this is editMode:",editMode);
     if(!editMode) {
         return res.redirect('/');
     }
     const prodId = req.params.productId;
-    Product.findById(prodId, product => {
+    req.user.getProducts({where: {id:prodId}})
+     .then(products => {
+        const product = products[0];
         if(!product){
             return res.redirect('/');
         }
@@ -42,7 +45,9 @@ exports.postEditProduct = (req,res,next) => {
     res.redirect('/admin');
 }
 exports.getAdminMain = (req,res,next) =>{
-    Product.findAll().then(products => {
+    req.user
+    .getProducts()
+    .then(products => {
         res.render('admin',{prod:products });
     }).catch(err => console.log(err));
     // res.sendFile(path.join(__dirname,'../','views','shop.ejs'));
