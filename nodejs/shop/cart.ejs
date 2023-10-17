@@ -64,12 +64,15 @@
         <h1>My Products</h1>
         <ul class="list-head">
             <% if(prod!=undefined){ %>
-            <% prod.products.forEach((item) => { %>
+            <% prod.forEach((item) => { %>
               <li><%= item.title %>
-                <div>Quantity:<%= item.qty %></div>
+                <div>Quantity:<%= item.cartItem.quantity %></div>
                 <div>Price:<%= item.price %></div>
                 <a href="/admin/product/<%=item.id %>">
                     <button type="submit">Details</button></a>
+                    <a href="/cart/delete/<%= item.id %>">
+                        <button type = "submit">Delete</button>
+                    </a>
             </li>
              
             <% });} %>

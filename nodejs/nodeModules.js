@@ -4,7 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const Product = require('./models/product');
-const User = require('./models/user');
+const User = require('./models/user'); 
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
 const app = express();
 
 const adminRoutes = require('./routes/admin')
@@ -32,9 +34,15 @@ app.use('/admin',successRoutes);
 app.use(errorController.getError);
 Product.belongsTo(User,{constraints:true,onDelete: 'CASCADE'});
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product,{through: CartItem });
+Product.belongsToMany(Cart,{through: CartItem });
 
 // const server = http.createServer(app);
-sequelize.sync()
+sequelize
+// .sync({force:true})
+.sync()
 .then((results) => {
     return User.findByPk(1);
     // console.log(results);
@@ -48,6 +56,10 @@ sequelize.sync()
 })
 .then(user => {
     // console.log(user);
+    return user.createCart();
+    // app.listen(4000);
+})
+.then(cart => {
     app.listen(4000);
 })
 .catch(err => console.log(err));

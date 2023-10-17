@@ -54,6 +54,7 @@ exports.getAdminMain = (req,res,next) =>{
 };
 exports.getDeleteProduct = (req,res,next) => {
     const prodId = req.params.productId;
+    console.log("getdeleteproduct :",prodId);
     Product.remainingFindById(prodId).then(([rows,filedData]) =>{
         // res.render('admin',{prod:rows});
         res.redirect('/admin');
