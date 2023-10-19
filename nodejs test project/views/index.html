@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>Cricket Careers: </title>
+</head>
+<body>
+    <header id="main-header"class="bg-success p-3 text-white">
+    <h1 id="header-title"class="text-center">player Information</h1>
+    </header>
+    <div id="main" class="card">
+        <div class="card-body">
+            <form id="addForm">
+                <div class="mb-3 row">
+                <label for="name" class="col-md-4 col-form-label">Name:</label>
+                <input type="text"id="name"class="form-control col-sm-8">
+                </div>
+                <div class="mb-3 row">
+                <label for="dob"class="col-md-4 col-form-label">Date of Birth:</label>
+                <input type="text"id="dob"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="photo"class="col-md-4 col-form-label">Photo Url:</label>
+                <input type="url"id="photo"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="birthplace"class="col-md-4 col-form-label">Birth Place:</label>
+                <input type="text"id="birthplace"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="career"class="col-md-4 col-form-label">Career:</label>
+                <textarea name="" id="career" cols="30" rows="5"class="form-control col-sm-8"></textarea>
+            </div>
+            <div class="mb-3 row">
+                <label for="matches"class="col-md-4 col-form-label">Number Of Matches</label>
+                <input type="number"id="matches"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="score"class="col-md-4 col-form-label">Score:</label>
+                <input type="number"id="score"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="fifties"class="col-md-4 col-form-label">Fifties:</label>
+                <input type="number"id="fifties"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="centuries"class="col-md-4 col-form-label">Centuries:</label>
+                <input type="number"id="centuries"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="wicket"class="col-md-4 col-form-label"> Wickets:</label>
+                <input type="number"id="wicket"class="form-control col-sm-8">
+            </div>
+            <div class="mb-3 row">
+                <label for="average"class="col-md-4 col-form-label">Average:</label>
+                <input type="number"id="average"class="form-control col-sm-8">
+            </div>
+
+            <div class="text-center">
+                <button id="addPlayer"class="btn btn-success"style="display:block;margin:0 auto;">Submit</button>
+                <button id="updatePlayer"class="btn btn-dark" style="display:none;margin:0 auto;">Update</button>
+            </div>
+            </form>
+            </div>
+            <div class="text-right searchClass">
+                <input type="text"id="inputSearch"placeholder="Search a Player">
+               <button type="submit"id="search"class="btn btn-primary">Search</button>
+            </div>
+            <div id = "details"style="display:none">
+                <div class="row">
+                    <div  class="offset-md-3 col-md-3">
+                        <img id="img1"src="" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-md-4">
+                        <h3 id="name1"></h3>
+                        <p id="dob1"></p>
+                        <p id="birthPlace"></p>
+                    </div>
+                    <div class="col-md-5 text-right ">
+                            <button class="btn btn-danger" id="editpage"type="submit">Edit Page</button>
+                    </div>
+                </div>
+                <span id="useId"style="display:none;"></span>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 id ='info'></h5>
+                        <p id="matches1"></p>
+                        <p id="runs"></p>
+                        <p id="fifties1"></p>
+                        <p id="centuries1"></p>
+                        <p id="wicket1"></p>
+                        <p id="average1"></p>
+                    </div>
+                    <div class="col-md-9">
+                        <p id ="career1"></p>
+                    </div>
+    
+                </div>
+            </div>
+            
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="testproject.js"></script>
+    <style>
+.row button {
+    margin:1rem 1rem;
+}
+.row {
+    margin:0rem 1rem;
+}
+.searchClass {
+    margin:1rem 1rem;
+}
+#info{
+    margin-top: 1rem;
+    color:blue;
+}
+    </style>
+</body>
+</html>
