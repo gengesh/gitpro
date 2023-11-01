@@ -1,7 +1,7 @@
 const Player = require('../model/players');
-const path = require('path');
+// const path = require('path');
 exports.postPlayer = async (req,res,next) => {
-    console.log("total post players:",req.body);
+   //  console.log("total post players:",req.body);
     const name = req.body.name;
     const dob = req.body.dob;
     const photo =req.body.photo;
@@ -13,7 +13,6 @@ exports.postPlayer = async (req,res,next) => {
     const centuries =req.body.centuries;
     const wicket =req.body.wicket;
     const average =req.body.average;
-
    const data = await Player.create ({
     name:name,
     dob:dob,
@@ -31,19 +30,26 @@ exports.postPlayer = async (req,res,next) => {
     
 }
 exports.getPlayer = async (req,res,next) => {
-console.log(req.body);
-res.status(200).json({allPlayer:req.body});
+   const players = await Player.findAll();//read all the tables in the database
+// console.log(req.body);
+res.status(200).json({allPlayers:players});
 }
 
 exports.postSearch = async (req,res,next) => {
- const players = await Player.findAll();
+//  const players = await Player.findAll();
  const search = req.body.search;
  var searchPlayer;
-  players.forEach((player) =>{
-    if(player.name == search)
-    return searchPlayer = player;
- });
- res.status(200).json({searchPlayer:searchPlayer});
+     await Player.findOne({ where:{
+      name:search
+ }
+ }).then((searchPlayer) => {
+   res.status(200).json({searchPlayer:searchPlayer});
+ }).catch(err => console.log(err));
+//   players.forEach((player) =>{
+//     if(player.name == search)
+//     return searchPlayer = player;
+//  });
+//  res.status(200).json({searchPlayer:searchPlayer});
 }
 exports.postEdit = async (req,res,next) => {
    const playerId = req.body.id;

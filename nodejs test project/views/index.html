@@ -64,9 +64,16 @@
             </div>
             </form>
             </div>
-            <div class="text-right searchClass">
+            <div class="searchClass">
+                <div class="col-md-3">
                 <input type="text"id="inputSearch"placeholder="Search a Player">
+                <div id="searchResults">
+
+             </div>
+            </div>
+            <div class="col-md-3 text-right">
                <button type="submit"id="search"class="btn btn-primary">Search</button>
+            </div>
             </div>
             <div id = "details"style="display:none">
                 <div class="row">
@@ -78,14 +85,17 @@
                         <p id="dob1"></p>
                         <p id="birthPlace"></p>
                     </div>
-                    <div class="col-md-5 text-right ">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-3 text-right ">
                             <button class="btn btn-danger" id="editpage"type="submit">Edit Page</button>
                     </div>
                 </div>
                 <span id="useId"style="display:none;"></span>
                 <div class="row">
                     <div class="col-md-3">
-                        <h5 id ='info'></h5>
+                        <h5 id ='info'tabindex="0"></h5>
                         <p id="matches1"></p>
                         <p id="runs"></p>
                         <p id="fifties1"></p>
@@ -105,7 +115,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="testproject.js"></script>
     <style>
-.row button {
+#details {
     margin:1rem 1rem;
 }
 .row {
@@ -113,11 +123,20 @@
 }
 .searchClass {
     margin:1rem 1rem;
+    display:flex;
+  justify-content: flex-end;
 }
 #info{
     margin-top: 1rem;
     color:blue;
 }
+#searchResults {
+        display:flex;
+        flex-direction: column;
+    }
+    /* input {
+        curser:pointer;
+    } */
     </style>
 </body>
 </html>

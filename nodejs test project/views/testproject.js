@@ -6,10 +6,71 @@ var search = document.getElementById('search');
 var editPage = document.getElementById('editpage');
 const updatePlayer = document.getElementById("updatePlayer");
 
+
+
 form.addEventListener('submit',addPlayer);
 search.addEventListener('click',searchPlayer);
 editPage.addEventListener('click',editPlayer);
 updatePlayer.addEventListener('click',updatePlayers);
+inputSearch.addEventListener('input',searchDownPlayer);
+
+
+
+
+function searchDownPlayer(){
+    console.log("this is searchdown player");
+    searchResults.innerHTML = "";
+    axios.get('http://localhost:4000/')
+    .then(response => {
+     const allPlayers = response.data.allPlayers;
+     const searchItem = document.getElementById('inputSearch').value;
+     console.log("this is names:",allPlayers);
+     console.log("this is searchItem:",searchItem);
+      if (searchItem) {
+     // Filter items based on the query
+     const filteredPlayers = allPlayers.filter(player => player.name.toLowerCase().includes(searchItem.toLowerCase()));
+     
+     // Display the filtered items
+     filteredPlayers.forEach(player => {
+        //  const li = document.createElement("li");
+        //  li.textContent = player.name;
+    //     //  searchResults.appendChild(li);
+    const listItem = document.createElement("input");
+    listItem.style.border = "0px";
+    listItem.style.cursor = "pointer";
+    listItem.value = player.name;
+    listItem.addEventListener("click", function () {
+      inputSearch.value = player.name;
+      searchResults.style.display = "none";
+    });
+    searchResults.appendChild(listItem);
+  });
+
+  if (filteredPlayers.length > 0) {
+    searchResults.style.display = "flex";
+  } else {
+    searchResults.style.display = "none";
+  }
+} else {
+    searchResults.style.display = "none";
+}
+
+
+document.addEventListener("click", function (event) {
+if (event.target !== inputSearch && event.target !== searchResults) {
+    searchResults.style.display = "none";
+}
+});
+
+// Prevent clicks inside the dropdown list from closing it
+searchResults.addEventListener("click", function (event) {
+event.stopPropagation();  //won't trigger any event listeners
+});
+    });
+}
+
+
+
 function addPlayer(e){
     e.preventDefault();
     var name = document.getElementById('name').value;
@@ -51,6 +112,9 @@ function addPlayer(e){
      .then(response => console.log(response))
      .catch(err => console.log(err));
 }
+
+
+
 function searchPlayer(param="e"){
     let search;
     if (typeof param === "string") {
@@ -64,6 +128,7 @@ function searchPlayer(param="e"){
     axios.post('http://localhost:4000/search/',{search:search})
     .then(response => {
         const player = response.data.searchPlayer;
+        console.log("search player is: ",player);
         const details = document.getElementById('details');
         details.style.display = "block";
         var name1 = document.getElementById('name1');
@@ -100,11 +165,17 @@ function searchPlayer(param="e"){
         img1.alt = player.name;
         const useId = document.getElementById('useId');
         useId.innerText = player.id;
-        const editPage = document.getElementById('editpage');
+        const editPage = document.getElementById('info');
         editPage.focus();
     })
     .catch(err => console.log(err));
 }
+
+
+
+
+
+
 function editPlayer(e)
 {
 e.preventDefault();
@@ -134,6 +205,10 @@ console.log("response is: ",player);
 })
 .catch(err => console.log(err));
 } 
+
+
+
+
 function updatePlayers(e){
 e.preventDefault();
 var name = document.getElementById('name').value;

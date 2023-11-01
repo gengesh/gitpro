@@ -6,7 +6,7 @@
 // //     const optiontext =document.createTextNode(op)
 // // newopt.appendChild(optiontext)
 // // newopt.setAttribute('value','Option Value')
-// // const sel=document.querySelector('select')
+// // const select=document.querySelector('select')
 // // sel.appendChild(newopt)
 // const sel=document.querySelector('select')
 // const newopt = document.createElement('option')
