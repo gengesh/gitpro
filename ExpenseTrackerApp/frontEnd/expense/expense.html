@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+                <div class="container">
+                     <form id ="formField"method="post">
+                         <header>
+                             <h4 class="expenseHead">ADD EXPENSES</h4>
+                         </header>
+                        <div class="form-group">
+                            <label for="amount">Spend Amount:</label>
+                            <input type="number" class="form-control myinput" id="amount" placeholder="Enter expense amount"required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <input type="text" class="form-control myinput" id="description" placeholder="type description here"required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select id="category" name="category"class="form-control">
+                                <option value="null">Choose</option>
+                                <option value="food">Food</option>
+                                <option value="petrol">Petrol</option>
+                                <option value="salary">Salary</option>
+                                <option value="other">Other</option>
+                              </select>
+                        </div>
+                        <div class="expenseClass">
+                            <button type="submit" class="buttonaddexpense">Add Expense</button>
+                        </div> 
+                    </form>
+                </div>
+                    <div class="getdetails">
+                        <h4>Added Expenses:</h4>
+                        <ul class="list">
+                            <!-- <li>this is amount and decription and category</li> -->
+                        </ul>
+                    </div>
+
+              
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="expense.js"></script>
+<style>
+    .expenseHead{
+        text-align:center;
+        padding-bottom:1rem;
+        padding-top:1rem;
+        color:rgba(34, 214, 43, 0.712);
+    }
+.container{
+    /* border:3px solid black; */
+    width:65%;
+    /* border-radius:20px; */
+     /* background-color:rgba(40, 128, 211, 0.664); */
+}
+.expenseClass{
+    text-align:center;  
+}
+.buttonaddexpense{
+    background-color:rgba(12, 179, 21, 0.808);
+    border-radius:10px;
+    color:white;
+    border-color: rgba(12, 179, 21, 0.808);
+}
+.myinput {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+#resonse {
+    color:red;
+    display:none;
+}
+label {
+    margin:0;
+}
+.getdetails {
+    margin:1rem 1rem;
+}
+.deletebutton{
+    margin-left:5px;
+    background-color:rgba(240, 10, 10, 0.808);
+    border-radius:10px;
+    color:white;
+    border-color: rgba(240, 10, 10, 0.808);
+}
+</style>
+</html>
