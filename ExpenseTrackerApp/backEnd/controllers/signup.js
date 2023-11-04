@@ -1,6 +1,8 @@
 const Users = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
+
+
 exports.postSignup = async (req,res,next) => {
     console.log("this is constroller req",req.body);
     const name = req.body.name;

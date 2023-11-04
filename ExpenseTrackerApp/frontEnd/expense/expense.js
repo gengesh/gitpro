@@ -9,7 +9,8 @@ form.addEventListener('submit',addExpense);
 allExpenses();
 
 function allExpenses(){
-    axios.get('http://localhost:4000/expense')
+    const token = localStorage.getItem('token');
+    axios.get('http://localhost:4000/expense',{headers:{"Authorization":token}})
     .then((response) => {
         console.log(response.data.expenses);
         const list = document.getElementsByClassName('list');
@@ -37,12 +38,13 @@ function addExpense(e){
     const amount = e.target.amount.value;
     const description = e.target.description.value;
     const category = e.target.category.value;
+    const token  = localStorage.getItem('token'); 
     const obj = {
         amount:amount,
         description:description,
         category:category,
     }
-    axios.post('http://localhost:4000/expense',obj)
+    axios.post('http://localhost:4000/expense',obj,{headers:{"Authorization":token}})
     .then(res => {
         console.log("response is ",res.data.response.id);
         e.target.amount.value = "";
@@ -71,7 +73,8 @@ function addExpense(e){
 function deleteExpense(e) {
     console.log("this is delete expenses",e.target.getAttribute('data-value'));
     const id = e.target.getAttribute('data-value');
-    axios.delete(`http://localhost:4000/delete/${id}`)
+    const token = localStorage.getItem('token');
+    axios.delete(`http://localhost:4000/delete/${id}`,{headers:{"Authorization":token}})
     .then(res =>{
         console.log(res);
         const list = document.getElementsByClassName('list');

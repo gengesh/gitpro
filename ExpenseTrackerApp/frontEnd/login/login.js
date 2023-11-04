@@ -31,6 +31,7 @@ axios.post('http://localhost:4000/login',obj)
             response.style = "display:flex";
         response.style = "color:red";
             response.textContent = "login successfully";
+            localStorage.setItem('token',res.data.token);
             window.location.href = '../expense/expense.html';
         }
 })
