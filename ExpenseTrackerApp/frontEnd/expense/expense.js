@@ -2,10 +2,12 @@
 
 const form = document.getElementById("formField");
 const premium = document.getElementById("rzp-button");
+const leaderBoardBtn = document.getElementById("leaderboardbtn");
+
 
 form.addEventListener('submit',addExpense);
 premium.addEventListener('click',buyPremium);
-
+leaderBoardBtn.addEventListener('click',showLeaderBoard);
 
 allExpenses();
 
@@ -126,4 +128,32 @@ function deleteExpense(e) {
             alert('something went wrong');
         })
     })
+}
+
+ function showLeaderBoard(e){
+    e.preventDefault();
+    console.log("thisis show leader board");
+    const token = localStorage.getItem('token');
+    axios.get("http://localhost:4000/premium/leaderboard",{headers:{"Authorization":token}})
+   .then(res => {
+    console.log(res.data.expense);
+    const leaderboardList = document.getElementsByClassName("leaderboardlist");
+    while(leaderboardList[0].firstChild){
+        leaderboardList[0].removeChild(leaderboardList[0].firstChild);
+    }
+    const leaderboardDiv = document.getElementById('leaderboarddiv');
+    const expenses = res.data.expense;
+    expenses.forEach(item =>{
+        leaderboardDiv.style.display = "block";
+        const li = document.createElement('li');
+        const details = `Name : ${item[0]}  Total Expenses : ${item[1]}`;
+        li.textContent = details;
+        li.style.marginBottom = '0.5rem';
+        leaderboardList[0].appendChild(li);
+    })
+
+   })
+   .catch(err => {
+    console.log(err);
+   })
 }

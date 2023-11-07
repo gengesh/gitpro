@@ -35,12 +35,23 @@
                 </div>
                 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                 <button id="rzp-button">Buy Premium</button>
+                <div id ="puser">
+                    <h5>PREMIUM USER <button id="leaderboardbtn">show Leader Board</button></h5>
+                    
+                </div>
                 <h4 id ="puser">Premium User</h4>
                     <div class="getdetails">
                         <h4>Added Expenses:</h4>
                         <ul class="list">
                             <!-- <li>this is amount and decription and category</li> -->
                         </ul>
+                    </div>
+                    <div id="leaderboarddiv">
+                        <h4 id="leaderboardhead">LEADER BOARD</h4>
+                        <ul class="leaderboardlist">
+
+                        </ul>
+
                     </div>
 
               
@@ -95,8 +106,20 @@ label {
     border-color: rgba(240, 10, 10, 0.808);
 }
 #puser{
+    margin-top:1rem;
     display:none;
     color: rgba(240, 10, 10, 0.808);
+}
+#leaderboardbtn,#leaderboardhead{
+    background-color:rgba(63, 38, 175, 0.808);
+    border-radius:10px;
+    color:white;
+    border-color: rgba(63, 38, 175, 0.808);
+    text-align:center;
+}
+#leaderboarddiv{
+    margin-top:1rem;
+    display:none;
 }
 </style>
 </html>

@@ -23,6 +23,9 @@ axios.post('http://localhost:4000/signup',obj)
         response.style = "display:flex";
         response.style = "color:red";
         response.textContent = res.data.info;
+        if (res.statuscode === 201){
+            window.location.href = '../login/login.html';
+        }
 })
 .catch(err => {
    console.log(err);

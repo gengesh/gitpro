@@ -53,6 +53,7 @@ const failedTransaction = (req,res) =>{
             order.update({paymentid:payment_id,status:'FAILED'})
             .then(res => {
                 console.log(res);
+                res.status(401).json({});
             }).catch(err => {
                 console.log(err);
             })

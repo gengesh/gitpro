@@ -14,11 +14,14 @@ const signupRoutes = require('./routes/signup.js');
 const loginRoutes = require('./routes/login.js');
 const expenseRoutes = require('./routes/expense.js');
 const premiumRoutes = require('./routes/premium.js');
+const leaderboardRoutes = require('./routes/leaderboard.js');
+
 // const Expense = require('./models/expenses');
 app.use(signupRoutes);
 app.use(loginRoutes);
 app.use(expenseRoutes);
 app.use(premiumRoutes);
+app.use(leaderboardRoutes);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
