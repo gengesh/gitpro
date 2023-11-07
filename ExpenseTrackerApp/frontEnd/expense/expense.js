@@ -146,7 +146,7 @@ function deleteExpense(e) {
     expenses.forEach(item =>{
         leaderboardDiv.style.display = "block";
         const li = document.createElement('li');
-        const details = `Name : ${item[0]}  Total Expenses : ${item[1]}`;
+        const details = `Name : ${item.name}  Total Expenses : ${item.Total_Expense}`;
         li.textContent = details;
         li.style.marginBottom = '0.5rem';
         leaderboardList[0].appendChild(li);
