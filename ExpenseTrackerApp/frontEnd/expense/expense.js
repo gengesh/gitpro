@@ -136,17 +136,17 @@ function deleteExpense(e) {
     const token = localStorage.getItem('token');
     axios.get("http://localhost:4000/premium/leaderboard",{headers:{"Authorization":token}})
    .then(res => {
-    console.log(res.data.expense);
+    console.log(res.data.users);
     const leaderboardList = document.getElementsByClassName("leaderboardlist");
     while(leaderboardList[0].firstChild){
         leaderboardList[0].removeChild(leaderboardList[0].firstChild);
     }
     const leaderboardDiv = document.getElementById('leaderboarddiv');
-    const expenses = res.data.expense;
+    const expenses = res.data.users;
     expenses.forEach(item =>{
         leaderboardDiv.style.display = "block";
         const li = document.createElement('li');
-        const details = `Name : ${item.name}  Total Expenses : ${item.Total_Expense}`;
+        const details = `Name : ${item.name}  Total Expenses : ${item.totalExpense}`;
         li.textContent = details;
         li.style.marginBottom = '0.5rem';
         leaderboardList[0].appendChild(li);

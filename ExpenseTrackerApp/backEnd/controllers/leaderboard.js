@@ -2,23 +2,40 @@ const Expenses = require('../models/expenses.js');
 const Users = require('../models/users.js');
 const sequelize = require('../util/database');
 exports.showLeaderboard = async (req,res,next) => {
-   
-    try{
-        const leaderboardOfUsers = await Users.findAll({
-            attributes: ['id','name',[sequelize.fn('sum',sequelize.col('expenses.amount')),'Total_Expense']],
-            include:[
-                {
-                model:Expenses,
-                attributes:[]
-                }
-            ],
-            group:['user.id'],
-            order:[['Total_Expense','DESC']]
-        })
-        res.status(200).json({expense:leaderboardOfUsers});
-    }catch(err){
-        console.log(err);
-    }
+    Users.findAll({
+        order:[['totalExpense','DESC']]
+    })
+    .then(users => {
+        res.status(200).json({users});
+    })
+    
+
+
+
+
+    // try{
+    //     const leaderboardOfUsers = await Users.findAll({
+    //         attributes: ['id','name',[sequelize.fn('sum',sequelize.col('expenses.amount')),'Total_Expense']],
+    //         include:[
+    //             {
+    //             model:Expenses,
+    //             attributes:[]
+    //             }
+    //         ],
+    //         group:['user.id'],
+    //         order:[['Total_Expense','DESC']]
+    //     })
+    //     res.status(200).json({expense:leaderboardOfUsers});
+    // }catch(err){
+    //     console.log(err);
+    // }
+
+
+
+
+
+
+
     // await Expenses.findAll()
     // .then(async (expenses) =>{
     //     // console.log("response is :",expenses);
