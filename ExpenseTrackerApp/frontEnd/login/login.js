@@ -14,28 +14,36 @@ const obj = {
     email:email,
     password:password
 }
-        
-axios.post('http://localhost:4000/login',obj)
-.then(res =>{
-        if(res.data.message=="404"){
-        response.style = "display:flex";
-        response.style = "color:red";
-        response.textContent = "email id not found";
-        }
-        if(res.data.message == "401"){
-        response.style = "display:flex";
-        response.style = "color:red";
-            response.textContent = "password is incorrect";
-        }
-        if(res.data.message == "200"){
-            response.style = "display:flex";
-        response.style = "color:red";
-            response.textContent = "login successfully";
-            localStorage.setItem('token',res.data.token);
-            window.location.href = '../expense/expense.html';
-        }
-})
-.catch(err => {
-   console.log(err);
-})
+     const loginStatus = document.getElementById('loginStatus');   
+     axios.post('http://localhost:4000/login', obj)
+     .then(response1 => {
+        console.log("response1",response1);
+       if (response1.status === 200) {
+         loginStatus.style.display = "flex";
+         loginStatus.style.color = "red";
+         loginStatus.textContent = "Login successful";
+         localStorage.setItem('token', response1.data.token);
+         window.location.href = '../expense/expense.html';
+       } 
+     })
+     .catch(err => {
+       console.log("Error in status:", err.response.status);
+       if(err.response.status === 401) {
+        loginStatus.style.display = "flex";
+        loginStatus.style.color = "red";
+        loginStatus.textContent = "Password is incorrect";
+        console.log('Password is incorrect.');
+      } else if (err.response.status === 404) {
+        loginStatus.style.display = "flex";
+        loginStatus.style.color = "red";
+        loginStatus.textContent = "Email ID not found";
+        console.log('Email ID not found');
+      } else {
+        loginStatus.style.display = "flex";
+        loginStatus.style.color = "red";
+        loginStatus.textContent = "Request failed with status: " + err.response.status;
+        console.log('Request failed with status: ' + err.response.status);
+      }
+     });
+   
 }

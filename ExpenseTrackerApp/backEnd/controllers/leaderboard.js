@@ -2,13 +2,15 @@ const Expenses = require('../models/expenses.js');
 const Users = require('../models/users.js');
 const sequelize = require('../util/database');
 exports.showLeaderboard = async (req,res,next) => {
-    Users.findAll({
-        order:[['totalExpense','DESC']]
-    })
-    .then(users => {
-        res.status(200).json({users});
-    })
-    
+    try {
+        const users =  await Users.findAll({
+            order:[['totalExpense','DESC']]
+        })
+            res.status(200).json({users});
+    }catch(err){
+        console.log(err);
+    }
+}
 
 
 
@@ -63,4 +65,4 @@ exports.showLeaderboard = async (req,res,next) => {
 //             res.status(200).json({expense:leaderboard});
 //         })
 //     })
-}
+// }

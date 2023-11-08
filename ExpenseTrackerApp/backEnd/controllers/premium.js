@@ -1,5 +1,6 @@
 const Razorpay = require('razorpay');
 const Order = require('../models/premium.js');
+const sequelize = require('../util/database.js');
 
 const purchasePremium = async (req,res) => {
     try {
@@ -12,9 +13,9 @@ const purchasePremium = async (req,res) => {
             if(err) {
                 throw new Error(JSON.stringify(err));
             }
-            req.user.createOrder({orderid:order.id,status:'PENDING'}).then(() => {
+            req.user.createOrder({orderid:order.id,status:'PENDING'}).then(async () => {
                 res.status(201).json({order,key_id:rzp.key_id});
-            }).catch(err => {
+            }).catch(async (err) => {
                 throw new Error(err);
             })
         })
@@ -22,46 +23,48 @@ const purchasePremium = async (req,res) => {
         console.log(err);
     res.status(403).json({message:'something went wrong',error:err})   }
 }
-const updateTransactionStatus = (req,res) =>{
+
+
+
+const updateTransactionStatus = async (req,res) =>{
+    const t = await sequelize.transaction();
+     const {payment_id,order_id}  = req.body;
     try {
-        const {payment_id,order_id}  = req.body;
-        Order.findOne({where:{orderid:order_id}})
-        .then(order => {
-            order.update({paymentid:payment_id,status:'SUCCESSFUL'})
-            .then(() => {
-        req.user.update({ispremiumuser:true})
-        .then(() => {
+            const order = await Order.findOne({where:{orderid:order_id},transaction:t})
+            if(order){
+            await order.update({paymentid:payment_id,status:'SUCCESSFUL'},{transaction:t})
+            await req.user.update({ispremiumuser:true},{transaction:t})
+            await t.commit();
             return res.status(202).json({success:true,message:"Transaction Successful"});
-        }).catch(err => {
-            throw new Error(err);
-        })
-    }).catch(err => {
-        throw new Error(err);
-    })
-}).catch(err => {
-    throw new Error(err);
-})
-}catch(err) {
-    console.log(err);
+        }else{
+            await t.rollback();
+            return res.status(404).json({success:false,message:"Order not Found"});
+        }
+} catch (err) {
+    await t.rollback();
+    console.error(err);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 }
-}
-const failedTransaction = (req,res) =>{
-    try {
-        const {payment_id,order_id}  = req.body;
-        Order.findOne({where:{orderid:order_id}})
-        .then(order => {
-            order.update({paymentid:payment_id,status:'FAILED'})
-            .then(res => {
-                console.log(res);
-                res.status(401).json({});
-            }).catch(err => {
-                console.log(err);
-            })
-        }).catch(err =>{
-            console.log(err);
-        })
+
+
+const failedTransaction = async (req,res) =>{
+    const t = await sequelize.transaction();
+    const {payment_id,order_id}  = req.body;
+    try { 
+       const order = await Order.findOne({where:{orderid:order_id},transaction:t})
+       if(order){
+        await order.update({paymentid:payment_id,status:'FAILED'},{transaction:t})
+        await t.commit();
+        res.status(401).json({message: "Order Failed"});
+       }else{
+        await t.rollback();
+        res.status(404).json({ message: "Order not found" });
+       }
     }catch(err){
+        await t.rollback();
         console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 module.exports = {

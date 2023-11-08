@@ -1,70 +1,59 @@
 const Expenses = require('../models/expenses.js');
 const Users = require('../models/users.js');
+const sequelize = require('../util/database.js');
 
 exports.postExpense = async (req,res1,next) => {
-    // console.log("this is constroller req",req.body);
-    var response ;
-    await Expenses.create({
-        amount:req.body.amount,
-        description:req.body.description,
-        category:req.body.category,
-        UserId:req.user.id,
-    })
-    .then( async response =>{
-        response = response;
-        const TotalExpenses = Number(req.user.totalExpense) + Number(req.body.amount) ;
-        console.log("this is total expense:",TotalExpenses)
-        await Users.update({totalExpense:TotalExpenses },{where:{id:req.user.id}})
-        .then(res => {
-            console.log("update res:",res)
-            res1.status(201).json({response});
-        }).catch(err =>{
-            console.log(err);
-            res1.status(501).json({response});
-        })
-    }).catch(err =>{
-        console.log(err);
-        res1.status(403).json({response})
-    })
-}
+    const t = await sequelize.transaction();
+    try{
+       const createdExpense = await Expenses.create({
+            amount:req.body.amount,
+            description:req.body.description,
+            category:req.body.category,
+            UserId:req.user.id,
+        },{transaction:t})
+            const TotalExpenses = Number(req.user.totalExpense) + Number(req.body.amount) ;
+            console.log("this is total expense:",TotalExpenses)
+            await Users.update({totalExpense:TotalExpenses },{where:{id:req.user.id},transaction:t})
+            await t.commit();
+            res1.status(201).json({createdExpense});
+    }catch(err){
+        await t.rollback();
+        res1.status(500).json({});
+    }
+ }
 
 exports.getExpense = async (req,res,next)=> {
-    // console.log("this is constroller getexpense",req.body);
+    try{
     const ispremiumuser = req.user.ispremiumuser;
     const expenses = await Expenses.findAll({
         where:{UserId:req.user.id}
     })
-    .then(response => {
-    //    console.log("total expenses:",response[0]);
-       res.status(200).json({expenses:response,ispremiumuser:ispremiumuser});     
-    })
-    .catch(err =>{
+     res.status(200).json({expenses,ispremiumuser});     
+    }catch(err){
         console.log(err);
-    })
+        res.status(500).json({});
+    }
 }
 
 exports.deleteExpense =  async (req,res,next) => {
     const deleteId = req.params.deleteId;
-    // console.log("deleteid is :",deleteId);
+    const t = await sequelize.transaction();
     try{
-        Expenses.findOne({
-            where:{id:deleteId}
+       const expense = await Expenses.findOne({
+            where:{id:deleteId},
+            transaction:t
         })
-        .then( async response =>{
-            const TotalExpenses = Number(req.user.totalExpense) - Number(response.amount) ;
-            console.log("this is total expense:",TotalExpenses)
-            await Users.update({totalExpense:TotalExpenses },{where:{id:req.user.id}})
+            const TotalExpenses = Number(req.user.totalExpense) - Number(expense.amount);
+            await Users.update({totalExpense:TotalExpenses},{where:{id:req.user.id},transaction:t})
             await Expenses.destroy({
-                where:{id:deleteId,UserId:req.user.id}
+                where:{id:deleteId,UserId:req.user.id},
+                transaction:t
             })
-            .then(response => {
-                console.log(response);
-                res.status(200).json({message:"successfully deleted"});
-            })
-    }).catch(err =>{
-        console.log(err);
-    })
+           await t.commit();
+            res.status(200).json({message:"successfully deleted"});
 }catch(err){
+    await t.rollback();
     console.log(err);
+    res.status(500).json({message:"something went wrong"});
 }
 }

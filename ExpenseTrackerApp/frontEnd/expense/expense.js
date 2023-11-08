@@ -54,7 +54,7 @@ function addExpense(e){
     }
     axios.post('http://localhost:4000/expense',obj,{headers:{"Authorization":token}})
     .then(res => {
-        console.log("response is ",res.data.response.id);
+        console.log("response is ",res.data.createdExpense.id);
         e.target.amount.value = "";
         e.target.description.value = "";
         e.target.category.value = "";
@@ -67,7 +67,7 @@ function addExpense(e){
         btn.textContent = "Delete";
         li.style.marginBottom = '0.5rem';
         btn.className = "deletebutton";
-        btn.setAttribute("data-value",res.data.response.id);
+        btn.setAttribute("data-value",res.data.createdExpense.id);
         li.appendChild(btn);
         list[0].appendChild(li);
         btn.addEventListener("click",deleteExpense);
