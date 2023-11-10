@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <h4 class="expenseHead">day to day expenses</h4>
+    </header>
+                <div class="container">
+                     <form id ="formField"method="post">
+                         <header>
+                             <h4 class="expenseHead">Daily</h4>
+                         </header>
+                        <div class="form-group">
+                           
+                        </div>
+                        <header>
+                            <h4 class="expenseHead">Weekly</h4>
+                        </header>
+                       <div class="form-group">
+                          
+                       </div>
+                       <header>
+                        <h4 class="expenseHead">Monthly</h4>
+                    </header>
+                    <div class="form-group">
+                          
+                    </div>
+                </form>
+                </div>
+                <div class="downloaddiv">
+                    <button type="button"id="downloadbtn">download</button>
+                </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="daytodayexpense.js"></script>
+<style>
+    .expenseHead{
+        text-align:center;
+        padding-bottom:1rem;
+        padding-top:1rem;
+        color:rgba(34, 214, 43, 0.712);
+    }
+.container{
+    width:65%;
+}
+
+#downloadbtn{
+    text-align: right;
+    margin-left:5px;
+    background-color:rgba(240, 10, 10, 0.808);
+    border-radius:10px;
+    color:white;
+    border-color: rgba(240, 10, 10, 0.808);
+}
+.downloaddiv{
+    text-align: right;
+    margin-right: 1rem;
+}
+
+</style>
+</html>
