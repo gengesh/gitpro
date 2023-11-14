@@ -3,11 +3,34 @@
 const form = document.getElementById("formField");
 const premium = document.getElementById("rzp-button");
 const leaderBoardBtn = document.getElementById("leaderboardbtn");
-
+const download = document.getElementById('downloadBtn');
 
 form.addEventListener('submit',addExpense);
 premium.addEventListener('click',buyPremium);
 leaderBoardBtn.addEventListener('click',showLeaderBoard);
+download.addEventListener('click',downloadFile);
+
+
+
+function downloadFile(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    axios.get("http://localhost:4000/expense/downloadfile",{headers:{"Authorization":token}})
+    .then(response => {
+        console.log(response);
+        if(response.status === 200){
+            var a = document.createElement("a");
+            a.href = response.data.fileURL;
+            a.download = 'myexpense.csv';
+            a.click();
+        }else{
+            console.log("err",response);
+        }
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
 
 allExpenses();
 
