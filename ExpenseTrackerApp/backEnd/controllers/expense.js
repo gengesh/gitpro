@@ -4,7 +4,7 @@ const sequelize = require('../util/database.js');
 const DownloadedFile = require('../models/downloadedfile.js')
 const UserService = require('../services/userservices.js');
 const UploadToS3Service = require('../services/uploadtos3.js');
-const EXPENSE_PER_PAGE = 2;
+// const EXPENSE_PER_PAGE = 2;
 exports.getexpensedownload = async (req,res,next)  => {
     try {
         const expenses = await UserService.getExpenses(req);
@@ -25,8 +25,6 @@ exports.getexpensedownload = async (req,res,next)  => {
     }
    
 }
-
-
 
 exports.postExpense = async (req,res1,next) => {
     const t = await sequelize.transaction();
@@ -52,7 +50,8 @@ exports.getExpense = async (req,res,next)=> {
     try{
     const ispremiumuser = req.user.ispremiumuser;
     const page = +req.query.page || 1;
-
+    const  EXPENSE_PER_PAGE =  +req.query.rowsperpage || 2;
+    console.log("EXPENSE_PER_PAGE:",+req.query.rowsperpage);
     let totalExpenses;
 
     Expenses.count({

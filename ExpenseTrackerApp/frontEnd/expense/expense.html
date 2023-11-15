@@ -41,7 +41,13 @@
                 </div>
                 <!-- <h4 class ="puser">Premium User</h4> -->
                     <div class="getdetails">
-                        <h4>Added Expenses:</h4>
+                        <h4>Added Expenses: <span style="font-size: small;float:right;"><span>Rows per page:</span> <select id="rowsperpage" name="rowsperpage"onchange="handlerowsperpage(this)">
+                            <option value="">select</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=5>5</option>
+                            <option value=10>10</option>
+                        </select></span> </h4>
                         <ul class="list">
                             <!-- <li>this is amount and decription and category</li> -->
                         </ul>

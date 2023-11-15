@@ -11,6 +11,10 @@ premium.addEventListener('click',buyPremium);
 leaderBoardBtn.addEventListener('click',showLeaderBoard);
 download.addEventListener('click',downloadFile);
 const pagination = document.getElementById('pagination');
+function handlerowsperpage(ele){
+    const rows =  ele.value;
+    localStorage.setItem('rowsPerPage',rows);
+}
 
 function downloadFile(e) {
     e.preventDefault();
@@ -84,7 +88,10 @@ function showPagination(data) {
 }
 function getExpenses(page){
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorization":token}})
+    const rowsperpage1 = localStorage.getItem('rowsPerPage');
+    const rowsperpage = Number(rowsperpage1);
+    console.log("rowsperpage get expenses",rowsperpage);
+    axios.get(`http://localhost:4000/expense?page=${page}&rowsperpage=${rowsperpage}`,{headers:{"Authorization":token}})
     .then((res) => {
 
       
@@ -99,7 +106,10 @@ function allExpenses(){
     // const page = e.target.paginationBtn.value || 1;
     const page = 1;
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorization":token}})
+    const rowsperpage1 = localStorage.getItem('rowsPerPage');
+    const rowsperpage = Number(rowsperpage1) || 2;
+    console.log("rowsperpage",rowsperpage);
+    axios.get(`http://localhost:4000/expense?page=${page}&rowsperpage=${rowsperpage}`,{headers:{"Authorization":token}})
     .then((response) => {
         console.log(response.data.expenses);
         console.log(response.data.ispremiumuser);
