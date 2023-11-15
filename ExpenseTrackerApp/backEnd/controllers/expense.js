@@ -4,7 +4,7 @@ const sequelize = require('../util/database.js');
 const DownloadedFile = require('../models/downloadedfile.js')
 const UserService = require('../services/userservices.js');
 const UploadToS3Service = require('../services/uploadtos3.js');
-
+const EXPENSE_PER_PAGE = 2;
 exports.getexpensedownload = async (req,res,next)  => {
     try {
         const expenses = await UserService.getExpenses(req);
@@ -51,10 +51,47 @@ exports.postExpense = async (req,res1,next) => {
 exports.getExpense = async (req,res,next)=> {
     try{
     const ispremiumuser = req.user.ispremiumuser;
-    const expenses = await Expenses.findAll({
-        where:{UserId:req.user.id}
-    })
-     res.status(200).json({expenses,ispremiumuser});     
+    const page = +req.query.page || 1;
+
+    let totalExpenses;
+
+    Expenses.count({
+        where: {
+         UserId:req.user.id
+        }
+      })
+    .then(async (total) => {
+        totalExpenses = total;
+        console.log("total expenses:",totalExpenses);
+          await Expenses.findAll({
+            where:{UserId:req.user.id},
+            offset:(page-1) * EXPENSE_PER_PAGE,
+            limit:EXPENSE_PER_PAGE,
+        })
+         .then((expenses) => {
+            console.log("list of expenses:",expenses);
+        res.json({
+            expenses:expenses,
+            currentPage:page,
+            hasNextPage:(EXPENSE_PER_PAGE * page) < totalExpenses,
+            nextPage:page + 1,
+            hasPreviousPage:page > 1,
+            previousPage:page -1,
+            lastPage:Math.ceil(totalExpenses/EXPENSE_PER_PAGE),
+            ispremiumuser:ispremiumuser
+        })
+    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));
+
+
+
+    // const expenses = await Expenses.findAll({
+    //     where:{UserId:req.user.id}
+    // })
+    //  res.status(200).json({expenses,ispremiumuser});     
+    // }catch(err){
+    //     console.log(err);
+    //     res.status(500).json({});
     }catch(err){
         console.log(err);
         res.status(500).json({});

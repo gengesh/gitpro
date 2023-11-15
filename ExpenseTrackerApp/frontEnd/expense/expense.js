@@ -1,3 +1,4 @@
+// const { getExpenses } = require("../../backEnd/services/userservices");
 
 
 const form = document.getElementById("formField");
@@ -9,8 +10,7 @@ form.addEventListener('submit',addExpense);
 premium.addEventListener('click',buyPremium);
 leaderBoardBtn.addEventListener('click',showLeaderBoard);
 download.addEventListener('click',downloadFile);
-
-
+const pagination = document.getElementById('pagination');
 
 function downloadFile(e) {
     e.preventDefault();
@@ -34,9 +34,72 @@ function downloadFile(e) {
 
 allExpenses();
 
-function allExpenses(){
+function listOfExpenses(expenses){
+     const list = document.getElementsByClassName('list');
+     while (list[0].firstChild) {
+        list[0].removeChild(list[0].firstChild);
+    }
+     expenses.forEach(item =>{
+        const li = document.createElement('li');
+        const details = `${item.amount} : ${item.description} : ${item.category}`;
+        li.textContent = details;
+        const btn = document.createElement('button');
+        btn.textContent = "Delete";
+        li.style.marginBottom = '0.5rem';
+        btn.className = "deletebutton";
+        btn.setAttribute("data-value",item.id);
+        li.appendChild(btn);
+        list[0].appendChild(li);
+        btn.addEventListener("click",deleteExpense);
+    })
+    
+}
+function showPagination(data) {
+          const currentPage=data.currentPage;
+          const hasNextPage=data.hasNextPage;
+          const nextPage=data.nextPage;
+          const hasPreviousPage=data.hasPreviousPage;
+          const previousPage=data.previousPage;
+          const lastPage=data.lastPage;
+          console.log(`currentPage:${currentPage},hasNextPage:${hasNextPage},nextPage:${nextPage},hasPreviousPage:${hasPreviousPage},previousPage:${previousPage},lastPage:${lastPage}`);
+         pagination.innerHTML = '';
+         if(hasPreviousPage){
+            const btn2 = document.createElement('button');
+            btn2.innerHTML = previousPage;
+            btn2.addEventListener('click', () => getExpenses(previousPage));
+            pagination.appendChild(btn2);
+         }
+         const btn1 = document.createElement('button');
+         btn1.innerHTML = `<h3>${currentPage}</h3>`;
+         btn1.addEventListener('click',() => getExpenses(currentPage));
+         pagination.appendChild(btn1);
+
+         if(hasNextPage) {
+            const btn3 = document.createElement('button');
+            btn3.innerHTML = nextPage;
+            btn3.addEventListener('click',() => getExpenses(nextPage));
+            pagination.appendChild(btn3);
+         }
+
+}
+function getExpenses(page){
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:4000/expense',{headers:{"Authorization":token}})
+    axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorization":token}})
+    .then((res) => {
+
+      
+        listOfExpenses(res.data.expenses);
+        showPagination(res.data);
+ 
+    })
+}
+
+function allExpenses(){
+    // console.log("query params of page :",e.target.paginationBtn.value);
+    // const page = e.target.paginationBtn.value || 1;
+    const page = 1;
+    const token = localStorage.getItem('token');
+    axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorization":token}})
     .then((response) => {
         console.log(response.data.expenses);
         console.log(response.data.ispremiumuser);
@@ -45,21 +108,8 @@ function allExpenses(){
             const puser = document.getElementById('puser');
             puser.style.display = "block";
         }
-        const list = document.getElementsByClassName('list');
-        response.data.expenses.forEach(item =>{
-            const li = document.createElement('li');
-            const details = `${item.amount} : ${item.description} : ${item.category}`;
-            li.textContent = details;
-            const btn = document.createElement('button');
-            btn.textContent = "Delete";
-            li.style.marginBottom = '0.5rem';
-            btn.className = "deletebutton";
-            btn.setAttribute("data-value",item.id);
-            li.appendChild(btn);
-            list[0].appendChild(li);
-            btn.addEventListener("click",deleteExpense);
-        })
-        
+        listOfExpenses(response.data.expenses);
+       showPagination(response.data);
 
     })
     }
