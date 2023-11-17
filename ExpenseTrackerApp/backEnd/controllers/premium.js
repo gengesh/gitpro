@@ -1,12 +1,12 @@
 const Razorpay = require('razorpay');
 const Order = require('../models/premium.js');
 const sequelize = require('../util/database.js');
-
+require('dotenv').config();
 const purchasePremium = async (req,res) => {
     try {
         var rzp = new Razorpay({
-            key_id:"rzp_test_5KCFt3pioFc3MW",
-            key_secret:"ALB4LVBShj7Rdxan1CdLM9H6"
+            key_id:process.env.ROZARPAY_KEY_ID,
+            key_secret:process.env.ROZARPAY_KEY_SECRET
         })
         const amount = 2500;
         rzp.orders.create({amount,currency:"INR"},(err,order) => {
@@ -20,6 +20,9 @@ const purchasePremium = async (req,res) => {
             })
         })
     }catch(err) {
+        console.log("ROZARPAY_KEY_ID:", process.env.ROZARPAY_KEY_ID);
+console.log("ROZARPAY_KEY_SECRET:", process.env);
+
         console.log(err);
     res.status(403).json({message:'something went wrong',error:err})   }
 }

@@ -22,13 +22,13 @@ require('dotenv').config();
 
         const client = Sib.ApiClient.instance;
 
-       client.authentications['api-key'].apiKey ='';
+       client.authentications['api-key'].apiKey = process.env.SENDINBLUE_API_KEY;
 
       const tranEmailApi = new Sib.TransactionalEmailsApi();
 
       const sender = {
-        email:'gengeswarancse11@gmail.com',
-        name:'gengeswaran',
+        email:process.env.SENDINBLUE_SENDER_MAILID,
+        name:process.env.SENDINBLUE_SENDER_NAME,
       }
 
       const receivers = [

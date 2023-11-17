@@ -4,7 +4,7 @@ const sequelize = require('../util/database.js');
 const DownloadedFile = require('../models/downloadedfile.js')
 const UserService = require('../services/userservices.js');
 const UploadToS3Service = require('../services/uploadtos3.js');
-// const EXPENSE_PER_PAGE = 2;
+
 exports.getexpensedownload = async (req,res,next)  => {
     try {
         const expenses = await UserService.getExpenses(req);
