@@ -1,0 +1,16 @@
+{
+    "env": {
+    "ROZARPAY_KEY_ID":"rzp_test_5KCFt3pioFc3MW",
+    "ROZARPAY_KEY_SECRET":"ALB4LVBShj7Rdxan1CdLM9H6",
+    "SENDINBLUE_API_KEY":"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",
+    "SENDINBLUE_SENDER_MAILID":"gengeswarancse11@gmail.com",
+    "SENDINBLUE_SENDER_NAME":"gengesh",
+    "IAM_USER_KEY" : "AKIAQ2JPNYMXIFJE4FFV",
+    "IAM_USER_SECRET" : "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",
+    "PORT":4000,
+    "DB_NAME":"expense",
+    "DB_USERNAME":"root",
+    "BD_PASSWORD":"123456",
+    "DB_HOST":"localhost"
+}
+}
