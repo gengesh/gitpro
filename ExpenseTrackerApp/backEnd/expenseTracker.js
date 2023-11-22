@@ -37,7 +37,24 @@ app.use(expenseRoutes);
 app.use(premiumRoutes);
 app.use(leaderboardRoutes);
 app.use(forgotpasswordRoutes);
+// app.use((req,res) => {
+//     console.log("urlllll;:",req.url)
+//     res.sendFile(path.join(__dirname,`../frontEnd/${req.url}`));
+// })
+app.use((req, res, next) => {
+    // Allow scripts from 'self' and the Axios CDN
+    req.url1 = req.url;
+    res.setHeader('Content-Security-Policy', "script-src 'self' https://cdnjs.cloudflare.com https://checkout.razorpay.com;"); 
 
+    // Continue to the next middleware
+    next();
+});
+
+// Serve static files from the frontEnd directory
+app.use((req, res) => {
+    console.log("urlllll;:", req.url1);
+    res.sendFile(path.join(__dirname, `../frontEnd/${req.url1}`));
+});
 User.hasMany(Expense);
 Expense.belongsTo(User);
 

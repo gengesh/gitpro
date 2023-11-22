@@ -15,6 +15,7 @@ const obj = {
     password:password
 }
      const loginStatus = document.getElementById('loginStatus');   
+    //  axios.post('http://65.1.100.107:4000/login', obj)
      axios.post('http://localhost:4000/login', obj)
      .then(response1 => {
         console.log("response1",response1);

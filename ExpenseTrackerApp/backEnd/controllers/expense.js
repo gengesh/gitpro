@@ -93,7 +93,7 @@ exports.getExpense = async (req,res,next)=> {
     //     res.status(500).json({});
     }catch(err){
         console.log(err);
-        res.status(500).json({});
+        res.status(500).json({"success":"false"});
     }
 }
 

@@ -3,6 +3,9 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdnjs.cloudflare.com https://checkout.razorpay.com;">
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
                 <div class="container">
@@ -33,7 +36,7 @@
                         </div> 
                     </form>
                 </div>
-                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                
                 <button id="rzp-button">Buy Premium</button>
                 <div id ="puser">
                     <h5>PREMIUM USER <button id="leaderboardbtn">show Leader Board</button></h5>
